@@ -1,9 +1,9 @@
 # SiREN v2.0
 ## _The Similarity Retrieval Engine v2.0_
 
-SIREN is a *middleware* software for Relational Database Management Systems proposed by [Barioni et al. (2006)][sirenpaper]. SIREN's core ideas are *(i)* the seamlessly extension of the SQL language towards similarity searching, and *(ii)* the definition of a proper extension for *selection* and *join* operators. Such concepts were further extended by [theoretical][sirenopt] and [experimental][medfmisir] studies. 
+SIREN is a *middleware* software for Relational Database Management Systems proposed by [Barioni et al. (2006)][sirenpaper]. SIREN's core ideas are *(i)* the seamless extension of the SQL language towards similarity searching, and *(ii)* the definition of a proper extension for *selection* and *join* operators. Such concepts were further extended by [theoretical][sirenopt] and [experimental][medfmisir] studies. 
 
-The first SIREN implementation provides an extension for DDL commands involving attributes compared by similarity as well as an interpreter for `SELECT` commands whose *selection* predicates involving similarity were solved by the interpreter and translated into `IN`-list conditions. The SIREN implementation in this repository:
+The first SIREN implementation provided an extension for DDL commands involving comparisons by similarity and an interpreter for `SELECT` commands. The *selection* predicates involving similarity were solved by the interpreter and translated into `IN`-list conditions. The implementation in this repository:
 
 1. Modifies the [SIREN grammar][newgrammar];
 2. Adds support for sub-selects (See [query examples][examples]);
@@ -17,16 +17,14 @@ The first SIREN implementation provides an extension for DDL commands involving 
 - Support for multidimensional feature vectors
 - Support for multiple distance functions
 - Support for metric indexes
-- Support for similarity searching
--- *k*-Nearest Neighbors queries
--- Range queries
-- Support for diversified similarity searching
--- BRID queries
--- BRIDGE queries
+- Support for similarity searching - *k*-Nearest Neighbors queries
+- Support for similarity searching - Range queries
+- Support for diversified similarity searching - BRID queries
+- Support for diversified similarity searching - BRIDGE queries
 - ✨Combine order and identity predicates with distance-based conditions!✨
 
 
-> SIREN assumes similarity predicates have execution priority (written order). Therefore, mind issuing non-comutative conditions carefully (*e.g.*, kNN), or use nested subselects to fix the execution order for inner->outer conditions.
+> SIREN assumes similarity predicates have priority for execution (written order). Therefore, mind issuing non-commutative conditions carefully (*e.g.*, kNN) or use nested subselects to fix the execution order for inner->outer conditions.
 
 ## Background technologies and 3rd-party libraries
 
@@ -35,7 +33,7 @@ Siren relies on a series of background technologies and 3rd-party libraries to w
 1. Background technologies
 
 - [Qt SDK][qt] - Qt Cross-Platform and SDK C++ development environment.
-- [Agathon library][agathon] - Self contained library with tokenizer and interpreter for similarity searching predicates.
+- [Agathon library][agathon] - Self-contained library with tokenizer and interpreter for similarity searching predicates.
 
 2. 3rd-party libraries
 
@@ -54,16 +52,16 @@ cd siren
 ./build.sh && make clean
 ```
 
-2. Run the compiled binary by providing the server ip, port, and the DBMS type and user (*e.g.*, localhost server running on port 3434 for MySQL with user 'user').
+2. Run the compiled binary by providing the server IP, port, and the DBMS type and user (*e.g.*, localhost server running on port 3434 for MySQL with user 'user').
 ```sh
 cd build-siren #your compiled binary folder location
-./Siren-Server -u user -p 3434 -h localhost -d mysql  #requires mysql to be installed
-#./Siren-Server -u user -p 3434 -h localhost          #requires sqlite to be installed
+./Siren-Server -u user -p 3434 -h localhost -d MySQL  #requires MySQL to be installed
+#./Siren-Server -u user -p 3434 -h localhost          #requires SQLite to be installed
 ```
 
-> SIREN over SQLite does not offer support diversified similarity searching because SQLite interpreter does not hande double IN-list conditions.
+> SIREN over SQLite does not offer support diversified similarity searching because SQLite interpreter does not handle double IN-list conditions.
 
-3. Run the [Siren DDL script][sirenddl] by issuing the DDL commands though a client (*e.g.*, telnet) for the server.
+3. Run the [Siren DDL script][sirenddl] by issuing the DDL commands through a client (*e.g.*, telnet) for the server.
 > You can use a simple telnet connection (i.e., telnet <siren-server-ip> <siren-server-port>) to submit the DDL script that contains standard SQL commands for the creation of SIREN internal tables.
 
 ## Directory structure
@@ -75,25 +73,26 @@ The directory tree is structured as follows.
 | root  | Main functionalities and util. |
 | example | Include examples and cases of use for SIREN. |
 | 3rd-party  | Includes the entry points for 3rd-party libraries. |
-| ddl | Includes the DDL script for SIREN instantion.  |
+| DDL | Includes the DDL script for SIREN instantiation.  |
 
 
 ## Development
 
-Future directions for SIREN includes adding support to [Apache Impala][impala] and the extension of its query language interpreter to [Apache Thrift][thrift].
+Future directions for SIREN include adding support to [Apache Impala][impala] and the extension of its query language interpreter to [Apache Thrift][thrift].
 
 
 ## Notes
 
-- SIREN is NOT a commerical software. **It is built for education and demonstration purposes ONLY!**
+- SIREN is NOT commercial software. **It is built for education and demonstration purposes ONLY!**
 - If you find any bug, feel free to open an issue. 
 - *The code is provided 'as is' and without any type of warrant or whatsoever (including bug fixing) - See License*.
+
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
    [sirenpaper]: <https://dl.acm.org/doi/abs/10.5555/1182635.1164232>
    [sirenopt]: <https://hal.archives-ouvertes.fr/hal-00687320/file/JIDM_2011.pdf>
-   [medfmirsir]: <https://link.springer.com/chapter/10.1007/978-3-642-23208-4_2>
+   [medfmisir]: <https://link.springer.com/chapter/10.1007/978-3-642-23208-4_2>
    [mysql]: <https://www.mysql.com/>
    [sqlite]: <https://www.sqlite.org/index.html>
    [newgrammar]: <https://www.sqlite.org/index.html>
