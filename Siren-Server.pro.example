@@ -72,7 +72,6 @@ HEADERS += \
 3rd-party/agathon/util/include/Parser.h \
 3rd-party/agathon/util/include/CreateTableSemanticStructs.h \
 3rd-party/agathon/util/include/SelectSemanticStructs.h \
-../higiia/3rd-party/hermes/util/include/BasicArrayObject.h \
 3rd-party/agathon/util/include/IndexManager.h
 
 #Agathon headers executor
