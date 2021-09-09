@@ -4,6 +4,8 @@
 #include <SQLExecutor.h>
 #include <IndexManager.h>
 #include <SelectSemanticStructs.h>
+#include <QRandomGenerator>
+#include <QDateTime>
 
 class SelectExecutor : public SQLExecutor{
 

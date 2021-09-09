@@ -1451,7 +1451,9 @@ void SelectExecutor::transformSimilarityIntoRegularSQL(){
                     idxName = dictionary()->getIndexFile(tableName.c_str(), attributeName.c_str(), metricCode.c_str()).toStdString();
                 } else {
                     distanceCode = dictionary()->getDistanceFunction(caTable.c_str(), cAttribute.c_str(), metricName.c_str()).toStdString();
-                    idxName = "temp_" + tableAlias + "_" + attributeAlias + "_" + QString::number(x).toStdString();
+                    //-- Begin -- It may generate a race condition for two parallel queries with same idxName - @todo - Properly fix with mutexes - Future.
+                    idxName = "temp_" + QString::number(QRandomGenerator::global()->generate()).toStdString() + "_" + QDateTime::currentDateTime().toString("dd.MM.yyyy").toStdString() + "_" + tableAlias + "_" + attributeAlias + "_" + QString::number(x).toStdString();
+                    //-- End --
                 }
 
                 //--- Abort execution to avoid fatal error (Arboretum-related)
