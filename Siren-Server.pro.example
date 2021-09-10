@@ -1,0 +1,134 @@
+QT       += core
+QT       += sql
+QT       += network
+
+CONFIG += c++11
+
+# You can make your code fail to compile if it uses deprecated APIs.
+# In order to do so, uncomment the following line.
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+
+INCLUDEPATH += 3rd-party/agathon/util/include/
+INCLUDEPATH += 3rd-party/agathon/executor/include/
+INCLUDEPATH += 3rd-party/agathon/syntactic/include/
+
+INCLUDEPATH += <path-to-hermes>/hermes/include
+INCLUDEPATH += <path-to-hermes>/hermes/util/include
+
+#Agathon sources util
+SOURCES += \
+3rd-party/agathon/util/src/SirenSQLQuery.cpp \
+3rd-party/agathon/util/src/DataDictionary.cpp \
+3rd-party/agathon/util/src/DatabaseManager.cpp \
+3rd-party/agathon/util/src/Token.cpp \
+3rd-party/agathon/util/src/StateMachine.cpp \
+3rd-party/agathon/util/src/Lexical.cpp \
+3rd-party/agathon/util/src/Parser.cpp \
+3rd-party/agathon/util/src/CreateTableSemanticStructs.cpp \
+3rd-party/agathon/util/src/IndexManager.cpp \
+3rd-party/agathon/util/src/SelectSemanticStructs.cpp
+
+#Agathon sources executor
+SOURCES += \
+3rd-party/agathon/executor/src/SQLExecutor.cpp \
+3rd-party/agathon/executor/src/CreateMetricExecutor.cpp \
+3rd-party/agathon/executor/src/CreateTableExecutor.cpp \
+3rd-party/agathon/executor/src/InsertIntoExecutor.cpp \
+3rd-party/agathon/executor/src/SelectExecutor.cpp \
+3rd-party/agathon/executor/src/CreateIndexExecutor.cpp \
+3rd-party/agathon/executor/src/DeleteExecutor.cpp \
+3rd-party/agathon/executor/src/DropMetricExecutor.cpp \
+3rd-party/agathon/executor/src/DropIndexExecutor.cpp \
+3rd-party/agathon/executor/src/DropTableExecutor.cpp \
+3rd-party/agathon/executor/src/UpdateExecutor.cpp \
+3rd-party/agathon/executor/src/AlterTableExecutor.cpp \
+3rd-party/agathon/executor/src/DescExecutor.cpp
+
+#Agathon sources syntactic
+SOURCES += \
+3rd-party/agathon/syntactic/src/SQLSyntactic.cpp \
+3rd-party/agathon/syntactic/src/CreateMetricSyntactic.cpp \
+3rd-party/agathon/syntactic/src/DropMetricSyntactic.cpp \
+3rd-party/agathon/syntactic/src/CreateIndexSyntactic.cpp \
+3rd-party/agathon/syntactic/src/DropIndexSyntactic.cpp \
+3rd-party/agathon/syntactic/src/CreateTableSyntactic.cpp \
+3rd-party/agathon/syntactic/src/DropTableSyntactic.cpp \
+3rd-party/agathon/syntactic/src/AlterTableSyntactic.cpp \
+3rd-party/agathon/syntactic/src/InsertIntoSyntactic.cpp \
+3rd-party/agathon/syntactic/src/DeleteSyntactic.cpp \
+3rd-party/agathon/syntactic/src/UpdateSyntactic.cpp \
+3rd-party/agathon/syntactic/src/SelectSyntactic.cpp \
+3rd-party/agathon/syntactic/src/DescSyntactic.cpp \
+3rd-party/agathon/syntactic/src/SirenSQLSyntactic.cpp
+
+#Agathon headers util
+HEADERS += \
+3rd-party/agathon/util/include/DataDictionary.h \
+3rd-party/agathon/util/include/DatabaseManager.h \
+3rd-party/agathon/util/include/SirenSQLQuery.h \
+3rd-party/agathon/util/include/Token.h \
+3rd-party/agathon/util/include/StateMachine.h \
+3rd-party/agathon/util/include/Lexical.h \
+3rd-party/agathon/util/include/Parser.h \
+3rd-party/agathon/util/include/CreateTableSemanticStructs.h \
+3rd-party/agathon/util/include/SelectSemanticStructs.h \
+3rd-party/agathon/util/include/IndexManager.h
+
+#Agathon headers executor
+HEADERS += \
+3rd-party/agathon/executor/include/SelectExecutor.h \
+3rd-party/agathon/executor/include/SQLExecutor.h \
+3rd-party/agathon/executor/include/CreateMetricExecutor.h \
+3rd-party/agathon/executor/include/CreateTableExecutor.h \
+3rd-party/agathon/executor/include/InsertIntoExecutor.h \
+3rd-party/agathon/executor/include/CreateIndexExecutor.h \
+3rd-party/agathon/executor/include/DeleteExecutor.h \
+3rd-party/agathon/executor/include/DropMetricExecutor.h \
+3rd-party/agathon/executor/include/DropIndexExecutor.h \
+3rd-party/agathon/executor/include/DropTableExecutor.h \
+3rd-party/agathon/executor/include/UpdateExecutor.h \
+3rd-party/agathon/executor/include/AlterTableExecutor.h \
+3rd-party/agathon/executor/include/DescExecutor.h
+
+#Agathon headers syntactic
+HEADERS += \
+3rd-party/agathon/syntactic/include/AlterTableSyntactic.h \
+3rd-party/agathon/syntactic/include/CreateIndexSyntactic.h \
+3rd-party/agathon/syntactic/include/CreateMetricSyntactic.h \
+3rd-party/agathon/syntactic/include/CreateTableSyntactic.h \
+3rd-party/agathon/syntactic/include/DeleteSyntactic.h \
+3rd-party/agathon/syntactic/include/DropIndexSyntactic.h \
+3rd-party/agathon/syntactic/include/DropMetricSyntactic.h \
+3rd-party/agathon/syntactic/include/SQLSyntactic.h \
+3rd-party/agathon/syntactic/include/DropTableSyntactic.h \
+3rd-party/agathon/syntactic/include/InsertIntoSyntactic.h \
+3rd-party/agathon/syntactic/include/UpdateSyntactic.h \
+3rd-party/agathon/syntactic/include/SelectSyntactic.h \
+3rd-party/agathon/syntactic/include/DescSyntactic.h \
+3rd-party/agathon/syntactic/include/SirenSQLSyntactic.h
+
+
+#Shell interface sources
+SOURCES += \
+3rd-party/agathon/util/src/ConsoleManager.cpp \
+SirenShell.cpp
+
+#Shell interface headers
+HEADERS += \
+3rd-party/agathon/util/include/ConsoleManager.h \
+SirenShell.h
+
+
+#Server sources
+SOURCES += \
+main.cpp
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
+
+LIBS += -L<path-to-arboretum>/arboretum/lib/ -larboretum
+INCLUDEPATH += <path-to-arboretum>/arboretum/include
+DEPENDPATH += <path-to-arboretum>/arboretum/include
+
