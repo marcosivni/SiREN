@@ -80,14 +80,16 @@ class SirenSQLQuery{
         void clear();
         void init(DatabaseManager *dbmg);
 
-    public:
+public:
         SirenSQLQuery(){
         }
 
         SirenSQLQuery(DatabaseManager *dbmg){
+            init(dbmg);
         }
 
         SirenSQLQuery(std::string sqlStatement, DatabaseManager *dbmg){
+            init(dbmg);
             this->sqlStatement = sqlStatement;
         }
 

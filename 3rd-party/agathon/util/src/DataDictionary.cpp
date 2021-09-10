@@ -37,6 +37,8 @@ bool DataDictionary::isMetric(QString metricName){
     bool answer = false;
     QString query;
 
+    DatabaseManager::DBMSType aux = db->dbms();
+
     if(db->dbms() == DatabaseManager::MYSQL) {
         query = "SELECT MetricCode FROM CDD$MetricStruct WHERE MetricName = '" + metricName + "'";
     } else {
