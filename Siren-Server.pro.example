@@ -15,6 +15,11 @@ INCLUDEPATH += 3rd-party/agathon/syntactic/include/
 INCLUDEPATH += <path-to-hermes>/hermes/include
 INCLUDEPATH += <path-to-hermes>/hermes/util/include
 
+LIBS += -L<path-to-arboretum>/arboretum/lib/ -larboretum
+INCLUDEPATH += <path-to-arboretum>/arboretum/include
+DEPENDPATH += <path-to-arboretum>/arboretum/include
+
+
 #Agathon sources util
 SOURCES += \
 3rd-party/agathon/util/src/SirenSQLQuery.cpp \
@@ -128,7 +133,4 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-LIBS += -L<path-to-arboretum>/arboretum/lib/ -larboretum
-INCLUDEPATH += <path-to-arboretum>/arboretum/include
-DEPENDPATH += <path-to-arboretum>/arboretum/include
 
