@@ -1521,9 +1521,6 @@ void SelectExecutor::transformSimilarityIntoRegularSQL(){
                                     firstXAdd = xAdd;
                                     break;
                                 }
-                                if (getParser()->getToken(xAdd)->getTokenType() == Token::TK_CLOSE_BRACE){
-                                    break;
-                                }
                                 xAdd--;
                             }
 
@@ -2033,6 +2030,9 @@ std::vector<std::string> SelectExecutor::translate(std::string sqlStatement){
     commands.push_back(aux);
 
     getParser()->resetParser();
+
+
+
     return commands;
 }
 
