@@ -1,5 +1,5 @@
-# SiREN v2.0
-## _The Similarity Retrieval Engine v2.0_
+# The SiREN Project
+## _Similarity Retrieval Engine v2.0_
 
 SIREN is a *middleware* software for Relational Database Management Systems proposed by [Barioni et al. (2006)][sirenpaper]. SIREN's core ideas are:
 
