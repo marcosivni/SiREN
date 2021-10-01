@@ -1,9 +1,12 @@
-# SiREN v2.0
-## _The Similarity Retrieval Engine v2.0_
+# The SiREN Project
+## _Similarity Retrieval Engine v2.0_
 
-SIREN is a *middleware* software for Relational Database Management Systems proposed by [Barioni et al. (2006)][sirenpaper]. SIREN's core ideas are *(i)* the seamless extension of the SQL language towards similarity searching, and *(ii)* the definition of a proper extension for *selection* and *join* operators. Such concepts were further extended by [theoretical][sirenopt] and [experimental][medfmisir] studies. 
+SIREN is a *middleware* software for Relational Database Management Systems proposed by [Barioni et al. (2006)][sirenpaper]. SIREN's core ideas are:
 
-The first SIREN implementation provided an extension for DDL commands involving comparisons by similarity and an interpreter for `SELECT` commands. The *selection* predicates involving similarity were solved by the interpreter and translated into `IN`-list conditions. The implementation in this repository:
+1. The seamless extension of the SQL language towards similarity searching, and 
+2. The definition of a proper extension for *selection* and *join* operators. 
+
+Such concepts were further extended by [theoretical][sirenopt] and [experimental][medfmisir] studies. The first SIREN implementation provided an extension for DDL commands involving comparisons by similarity and an interpreter for `SELECT` commands. The *selection* predicates involving similarity were solved by the interpreter and translated into `IN`-list conditions. The implementation in this repository:
 
 1. Modifies the [SIREN grammar][newgrammar];
 2. Adds support for sub-selects (See [query examples][examples]);
@@ -33,7 +36,7 @@ Siren relies on a series of background technologies and 3rd-party libraries to w
 1. Background technologies
 
 - [Qt SDK][qt] - Qt Cross-Platform and SDK C++ development environment.
-- [Agathon library][agathon] - Self-contained library with tokenizer and interpreter for similarity searching predicates.
+- [Agathon library][agathon] - Self-contained library with an (sketch of) interpreter for similarity searching predicates.
 
 2. 3rd-party libraries
 
@@ -43,8 +46,10 @@ Siren relies on a series of background technologies and 3rd-party libraries to w
 
 ## Installation
 
+> A detailed installation guide is available at the SIREN Wiki [here][wiki].
+
 1. Install the background technologies and download the source code of 3rd-party libraries.
-Then, adjust the include paths of `siren.pro.example` file to point to the installation folders of the 3rd-party libraries and rename it to `siren.pro`.
+Then, adjust the include paths of `Siren-Server.pro.example` file to point to the installation folders of the 3rd-party libraries and rename it to `Siren-Server.pro`.
 After that, you can use `build.sh` to compile the server version.
 
 ```sh
@@ -62,6 +67,7 @@ cd build-siren #your compiled binary folder location
 > SIREN over SQLite does not offer support diversified similarity searching because SQLite interpreter does not handle double IN-list conditions.
 
 3. Run the [Siren DDL script][sirenddl] by issuing the DDL commands through a client (*e.g.*, telnet) for the server.
+
 > You can use a simple telnet connection (i.e., telnet <siren-server-ip> <siren-server-port>) to submit the DDL script that contains standard SQL commands for the creation of SIREN internal tables.
 
 ## Directory structure
@@ -85,7 +91,7 @@ Future directions for SIREN include adding support to [Apache Impala][impala] an
 
 - SIREN is NOT commercial software. **It is built for education and demonstration purposes ONLY!**
 - If you find any bug, feel free to open an issue. 
-- *The code is provided 'as is' and without any type of warrant or whatsoever (including bug fixing) - See License*.
+- _(C) THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHORS OF THIS SOFTWARE OR ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE._
 
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
@@ -95,15 +101,16 @@ Future directions for SIREN include adding support to [Apache Impala][impala] an
    [medfmisir]: <https://link.springer.com/chapter/10.1007/978-3-642-23208-4_2>
    [mysql]: <https://www.mysql.com/>
    [sqlite]: <https://www.sqlite.org/index.html>
-   [newgrammar]: <https://www.sqlite.org/index.html>
-   [divsearch]: <https://www.sqlite.org/index.html>
-   [examples]: <https://www.sqlite.org/index.html>
+   [newgrammar]: <https://github.com/marcosivni/siren/wiki/Extended-SQL-Grammar>
+   [divsearch]: <https://scholar.google.com/citations?view_op=view_citation&hl=pt-BR&user=O1iEWSkAAAAJ&citation_for_view=O1iEWSkAAAAJ:u5HHmVD_uO8C>
+   [examples]: <https://github.com/marcosivni/siren/wiki/Examples#querying-data-by-content-with-select>
    [qt]: <https://www.qt.io/download>
    [arboretum]: <https://bitbucket.org/gbdi/arboretum/src/master/>
    [hermes]: <https://github.com/marcosivni/hermes>
    [arbforked]: <https://github.com/marcosivni/arboretum>
-   [agathon]: <www>
-   [sirenddl]: <www>
+   [wiki]: <https://github.com/marcosivni/siren/wiki>
+   [agathon]: <https://github.com/marcosivni/siren/tree/main/3rd-party/agathon>
+   [sirenddl]: <https://github.com/marcosivni/siren/tree/main/ddl>
    [impala]: <https://impala.apache.org/>
    [thrift]: <https://thrift.apache.org/>
  
