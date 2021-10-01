@@ -140,6 +140,12 @@ void SirenShell::onReadyRead(){
             return;
         }
 
+	//Ignore \n commands
+	if (!query.size()){
+	     sender->write("\n");
+ 	    return;
+	}
+
         //Extended SQL processing
         try{
             SirenSQLQuery sirenQuery(db);
@@ -153,9 +159,10 @@ void SirenShell::onReadyRead(){
                 for (int x = 0; x < sqlStatements.size(); x++){
                     QMap<QString, QStringList> *resultSet = db->runSelect(sqlStatements.at(x));
                     console.write(sqlStatements[x].toStdString());
-                    sender->write(logResultSet(*resultSet).toStdString().c_str());
+		    QString pp = logResultSet(*resultSet);
+		    sender->write(pp.toLocal8Bit(), pp.size());
                     //Sync sending...
-                    sender->waitForBytesWritten();
+                    sender->waitForBytesWritten(-1);
                     //Memory cleaning
                     resultSet->clear();
                     if (resultSet != nullptr)
