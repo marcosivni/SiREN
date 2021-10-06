@@ -1452,7 +1452,7 @@ void SelectExecutor::transformSimilarityIntoRegularSQL(){
                 } else {
                     distanceCode = dictionary()->getDistanceFunction(caTable.c_str(), cAttribute.c_str(), metricName.c_str()).toStdString();
                     //-- Begin -- It may generate a race condition for two parallel queries with same idxName - @todo - Properly fix with mutexes - Future.
-                    idxName = "temp_" + QString::number(QRandomGenerator::global()->generate()).toStdString() + "_" + QDateTime::currentDateTime().toString("dd.MM.yyyy").toStdString() + "_" + tableAlias + "_" + attributeAlias + "_" + QString::number(x).toStdString();
+                    idxName = "temp_" + QString::number(qrand()).toStdString() + "_" + QDateTime::currentDateTime().toString("dd.MM.yyyy").toStdString() + "_" + tableAlias + "_" + attributeAlias + "_" + QString::number(x).toStdString();
                     //-- End --
                 }
 
@@ -1468,10 +1468,12 @@ void SelectExecutor::transformSimilarityIntoRegularSQL(){
 
                 if (vTable){
                     tSql = "SELECT " + tableAlias + "." + attributeAlias + " FROM ( " + tableName + " ) AS " + tableAlias;// + " JOIN " + hiddenJoinTableName + " ON " + tableAlias + "." + attribute + " = " + hiddenJoinTableName + "." + attribute + "_id";
+
                     SelectExecutor *tSel = new SelectExecutor(tSql, dbManager());
                     tSql = tSel->translateToRegularSQL(true);
                     delete (tSel);
                     subQuery = dbManager()->runSelect(tSql.c_str());
+
                     populateSequentialScan(idx, subQuery);
                     if (subQuery!= nullptr){
                         delete (subQuery);
@@ -1505,8 +1507,6 @@ void SelectExecutor::transformSimilarityIntoRegularSQL(){
                             //---- Start - Adding cartesian product for bringing bridged attributes (...$bridged)
                             size_t xAdd = getParser()->countTokens() - 1;
                             size_t firstXAdd = 0;
-
-                            ////getParser()->print();
 
                             //Stack mode
                             //---- Start - Locate insert position (token list)
@@ -1675,6 +1675,7 @@ void SelectExecutor::transformAsteriskIntoColumnList(){
                 t = new Token(",", Token::TK_COMMA, Lexical::LK_UNDEFINED);
                 tList.push_back(t);
             }
+
             tableAlias = auxMetadata->aliasesOfTables()[x];
             columnAlias = auxMetadata->aliasesOfAttributes()[x];
 
@@ -1827,6 +1828,7 @@ void SelectExecutor::transformSimilarityIntoRegularAttribute(bool isSubselect){
                 location = locateAttribute(tableAlias, attributeAlias);
                 attributeName = metadata->attributes()[location];
             }
+
             //Update metadata values
             tableName = metadata->tables()[location];
 
@@ -1863,11 +1865,11 @@ void SelectExecutor::transformSimilarityIntoRegularAttribute(bool isSubselect){
                     tList.push_back(t);
                 }
 
-                joinHiddenTableOfSimilarityAttribute(tableName, tableAlias, attributeName);
-
                 getParser()->insertTokenList(tList, pos);
                 x = x - 1 + tList.size();
                 tList.clear();
+
+                joinHiddenTableOfSimilarityAttribute(tableName, tableAlias, attributeName);
             }
         }
         x++;
@@ -1891,22 +1893,29 @@ void SelectExecutor::joinHiddenTableOfSimilarityAttribute(std::string tableName,
         if (getParser()->getToken(x)->getLexem() == tableName){
             int pos = x;
             if (tableAlias != tableName){
-                if (getParser()->getToken(x+1)->toUpperLexem() == "AS"){
+                if ((getParser()->countTokens() > (x+2)) && getParser()->getToken(x+1)->toUpperLexem() == "AS"){
                     pos = x+2;
                 } else {
                     pos = x+1;
                 }
-
                 if (getParser()->getToken(pos)->getLexem() == tableAlias){
                     found = true;
                 }
             } else {
+                if ((getParser()->countTokens() > (x+2)) && getParser()->getToken(x+1)->toUpperLexem() == "AS"){
+                    if (getParser()->getToken(x+2)->getLexem() == tableAlias){
+                        pos = x+2;
+                    }
+                } else {
+                    if ((getParser()->countTokens() > (x+1)) && getParser()->getToken(x+1)->getLexem() == tableAlias){
+                        pos = x+1;
+                    }
+                }
                 found = true;
             }
 
             if (found){
                 getParser()->removeToken(x);
-
                 for (int k = x; k < pos; k++){
                     getParser()->removeToken(x);
                 }
@@ -1993,7 +2002,6 @@ std::string SelectExecutor::translateToRegularSQL(bool isSubselect){
     destroyAuxiliaryStructures();
     metadata = new QueryMetaTree();
     pjListMetadata = new ProjectionListMetaInfo();
-
 
     getParser()->match(getParser()->getCurrentToken());
     select_list();

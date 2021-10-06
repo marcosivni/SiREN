@@ -159,8 +159,8 @@ void SirenShell::onReadyRead(){
                 for (int x = 0; x < sqlStatements.size(); x++){
                     QMap<QString, QStringList> *resultSet = db->runSelect(sqlStatements.at(x));
                     console.write(sqlStatements[x].toStdString());
-		    QString pp = logResultSet(*resultSet);
-		    sender->write(pp.toLocal8Bit(), pp.size());
+                    QString pp = logResultSet(*resultSet);
+                    sender->write(pp.toLocal8Bit(), pp.size());
                     //Sync sending...
                     sender->waitForBytesWritten(-1);
                     //Memory cleaning
