@@ -176,10 +176,15 @@ QueryMetaTree SelectExecutor::fetchMetadata(){
 }
 
 
-void SelectExecutor::populateSequentialScan(IndexManager *idx, QMap<QString, QStringList>* tempResultSet){
+void SelectExecutor::populateSequentialScan(IndexManager *idx, QMap<QString, QStringList>* tempResultSet) throw (std::exception *){
+
+    //Abort execution
+    if (tempResultSet->isEmpty()){
+        throw new std::runtime_error("Nested subselect query returning an empty set.");
+    }
+    //
 
     QStringList aux = tempResultSet->constBegin().value();
-
     for (int x = 0; x < aux.size(); x++){
         FeatureVector fv;
         fv.unserializeFromString(FeatureVector::fromBase64(aux.at(x).toStdString()));
@@ -1475,6 +1480,7 @@ void SelectExecutor::transformSimilarityIntoRegularSQL(){
                     subQuery = dbManager()->runSelect(tSql.c_str());
 
                     populateSequentialScan(idx, subQuery);
+
                     if (subQuery!= nullptr){
                         delete (subQuery);
                     }

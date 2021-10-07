@@ -30,7 +30,7 @@ class SelectExecutor : public SQLExecutor{
         bool isJoinType(std::string word);
         bool isPredicateType(std::string word);
         bool isAggregationType(std::string word);
-        void populateSequentialScan(IndexManager *idx, QMap<QString, QStringList>* tempResultSet);
+        void populateSequentialScan(IndexManager *idx, QMap<QString, QStringList>* tempResultSet) throw (std::exception *);
         void buildFullInfoQueryMetaTree();
         void buildInfoQueryMetaTree();
         void renameMetadataAttributes();
