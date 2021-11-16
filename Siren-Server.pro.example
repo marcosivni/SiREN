@@ -11,6 +11,7 @@ CONFIG += c++11
 INCLUDEPATH += 3rd-party/agathon/util/include/
 INCLUDEPATH += 3rd-party/agathon/executor/include/
 INCLUDEPATH += 3rd-party/agathon/syntactic/include/
+INCLUDEPATH += 3rd-party/stp/include/
 
 INCLUDEPATH += <path-to-hermes>/hermes/include
 INCLUDEPATH += <path-to-hermes>/hermes/util/include
@@ -116,11 +117,13 @@ HEADERS += \
 #Shell interface sources
 SOURCES += \
 3rd-party/agathon/util/src/ConsoleManager.cpp \
+3rd-party/stp/src/SirenTransferProtocol.cpp \
 SirenShell.cpp
 
 #Shell interface headers
 HEADERS += \
 3rd-party/agathon/util/include/ConsoleManager.h \
+3rd-party/stp/include/SirenTransferProtocol.h \
 SirenShell.h
 
 
