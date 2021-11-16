@@ -14,6 +14,7 @@ DatabaseManager::DatabaseManager(QString hostname, QString username, QString pas
     db.setHostName(hostname);
     if (dbmsType == DBMSType::MYSQL){
         db.setDatabaseName("SIREN");
+        db.setConnectOptions("MYSQL_OPT_RECONNECT=TRUE");
     } else {
         db.setDatabaseName("database/SIREN.db");
     }
