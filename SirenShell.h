@@ -3,9 +3,6 @@
 
 #include <ConsoleManager.h>
 #include <SirenSQLQuery.h>
-#include <SirenTransferProtocol.h>
-
-//Qt includes
 #include <QString>
 #include <QDateTime>
 
@@ -30,7 +27,6 @@ class SirenShell: public QThread{
         DatabaseManager *db;
         QHostAddress ip;
         int port;
-        SirenTransferProtocol stp;
 
     private:
         void destroyTcpServer();

@@ -98,7 +98,7 @@ void SirenShell::onNewConnection(){
     console.write(QDateTime::currentDateTime().toString(dataFormat).toStdString()
                   + " : IP: " + clientSocket->peerAddress().toString().toStdString()
                   + " PORT: " + QString::number(clientSocket->peerPort()).toStdString() + " connected to server!");
-    stp.send(clientSocket, "Siren::SQL> ");
+    clientSocket->write("Siren::SQL> ");
 }
 
 
@@ -114,7 +114,8 @@ void SirenShell::onSocketStateChanged(QAbstractSocket::SocketState socketState){
 void SirenShell::onReadyRead(){
 
     QTcpSocket* sender = static_cast<QTcpSocket*>(QObject::sender());
-    QString datas = stp.receive(sender);
+    QByteArray datas = sender->readAll();
+
 
     console.write( QDateTime::currentDateTime().toString(dataFormat).toStdString()
                    + " : IP: " + sender->peerAddress().toString().toStdString()
@@ -125,8 +126,8 @@ void SirenShell::onReadyRead(){
     if (datas != "\r\n"){
 
         //Convert input to QString and remove \n, etc
-        QString query = datas.simplified();
-
+        QString query = datas;
+        query = query.simplified();
         //Remove ';'
         if (query.at(query.size() -1) == ";"){
             query.chop(1);
@@ -139,11 +140,11 @@ void SirenShell::onReadyRead(){
             return;
         }
 
-        //Ignore \n commands
-        if (!query.size()){
-            stp.send(sender, "\n");
-            return;
-        }
+	//Ignore \n commands
+	if (!query.size()){
+	     sender->write("\n");
+ 	    return;
+	}
 
         //Extended SQL processing
         try{
@@ -151,15 +152,17 @@ void SirenShell::onReadyRead(){
             sirenQuery.prepare(query.toStdString());
 
             if (sirenQuery.hasErrors()){
-                stp.send(sender, "Command failed.\n");
-                stp.send(sender, logResultErrors(fromStringVector(sirenQuery.errors())).toStdString().c_str());
+                sender->write("Command failed.\n");
+                sender->write(logResultErrors(fromStringVector(sirenQuery.errors())).toStdString().c_str());
             } else {
                 QStringList sqlStatements = fromStringVector(sirenQuery.translation());
                 for (int x = 0; x < sqlStatements.size(); x++){
                     QMap<QString, QStringList> *resultSet = db->runSelect(sqlStatements.at(x));
                     console.write(sqlStatements[x].toStdString());
                     QString pp = logResultSet(*resultSet);
-                    stp.send(sender, pp.toUtf8());
+                    sender->write(pp.toLocal8Bit(), pp.size());
+                    //Sync sending...
+                    sender->waitForBytesWritten(-1);
                     //Memory cleaning
                     resultSet->clear();
                     if (resultSet != nullptr)
@@ -169,11 +172,11 @@ void SirenShell::onReadyRead(){
             }
         } catch (...){
             console.write("Fatal error executing the query.\n");
-            stp.send(sender, "Fatal error executing the query.\n");
+            sender->write("Fatal error executing the query.\n");
         }
     }
     //Echo-like string, remove if you want to
-    stp.send(sender, "Siren::SQL> ");
+    sender->write("Siren::SQL> ");
 }
 
 QStringList SirenShell::fromStringVector(std::vector<std::string> input){
