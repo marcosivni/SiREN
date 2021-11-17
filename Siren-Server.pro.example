@@ -11,14 +11,13 @@ CONFIG += c++11
 INCLUDEPATH += 3rd-party/agathon/util/include/
 INCLUDEPATH += 3rd-party/agathon/executor/include/
 INCLUDEPATH += 3rd-party/agathon/syntactic/include/
-INCLUDEPATH += 3rd-party/stp/include/
 
-INCLUDEPATH += <path-to-hermes>/hermes/include
-INCLUDEPATH += <path-to-hermes>/hermes/util/include
+INCLUDEPATH += ../hermes/include
+INCLUDEPATH += ../hermes/util/include
 
-LIBS += -L<path-to-arboretum>/arboretum/lib/ -larboretum
-INCLUDEPATH += <path-to-arboretum>/arboretum/include
-DEPENDPATH += <path-to-arboretum>/arboretum/include
+LIBS += -L../arboretum/lib/ -larboretum
+INCLUDEPATH += ../arboretum/include
+DEPENDPATH += ../arboretum/include
 
 
 #Agathon sources util
