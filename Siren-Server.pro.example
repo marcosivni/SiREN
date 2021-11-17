@@ -116,13 +116,11 @@ HEADERS += \
 #Shell interface sources
 SOURCES += \
 3rd-party/agathon/util/src/ConsoleManager.cpp \
-3rd-party/stp/src/SirenTransferProtocol.cpp \
 SirenShell.cpp
 
 #Shell interface headers
 HEADERS += \
 3rd-party/agathon/util/include/ConsoleManager.h \
-3rd-party/stp/include/SirenTransferProtocol.h \
 SirenShell.h
 
 
