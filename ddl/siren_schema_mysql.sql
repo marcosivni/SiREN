@@ -75,3 +75,23 @@ CREATE TABLE `EPD$Sequences` (
   `lastValue` int DEFAULT NULL,
   PRIMARY KEY (`name`)
 );
+
+DROP TABLE IF EXISTS H_Provenance;
+CREATE TABLE H_Provenance (
+    userId INTEGER,
+    imageId INTEGER,
+    tStamp DATETIME,
+    tableName VARCHAR(45),
+    operation VARCHAR(45),
+    opValue TEXT,
+    observation TEXT,
+    PRIMARY KEY (userId, imageId, tStamp, tableName)
+);
+
+DROP TABLE IF EXISTS H_Diagnoses;
+CREATE TABLE H_Diagnoses (
+    id INTEGER,
+    tableName VARCHAR(255),
+    diagnosis VARCHAR(255),
+    PRIMARY KEY (id, tableName)
+);

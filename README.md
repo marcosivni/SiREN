@@ -6,7 +6,7 @@ SIREN is a *middleware* software for Relational Database Management Systems prop
 1. The seamless extension of the SQL language towards similarity searching, and 
 2. The definition of a proper extension for *selection* and *join* operators. 
 
-Such concepts were further extended by [theoretical][sirenopt] and [experimental][medfmisir] studies. The first SIREN implementation provided an extension for DDL commands involving comparisons by similarity and an interpreter for `SELECT` commands. The *selection* predicates involving similarity were solved by the interpreter and translated into `IN`-list conditions. The implementation in this repository:
+Such concepts were further extended by [theoretical and experimental][medfmisir] studies. The first SIREN implementation provided an extension for DDL commands involving comparisons by similarity and an interpreter for `SELECT` commands. The *selection* predicates involving similarity were solved by the interpreter and translated into `IN`-list conditions. The implementation in this repository:
 
 1. Modifies the [SIREN grammar][newgrammar];
 2. Adds support for sub-selects (See [query examples][examples]);
@@ -97,7 +97,6 @@ Future directions for SIREN include adding support to [Apache Impala][impala] an
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
    [sirenpaper]: <https://dl.acm.org/doi/abs/10.5555/1182635.1164232>
-   [sirenopt]: <https://hal.archives-ouvertes.fr/hal-00687320/file/JIDM_2011.pdf>
    [medfmisir]: <https://link.springer.com/chapter/10.1007/978-3-642-23208-4_2>
    [mysql]: <https://www.mysql.com/>
    [sqlite]: <https://www.sqlite.org/index.html>
