@@ -1,6 +1,6 @@
 *.pro
 /ico
-
+/.qtc_clangd/
 
 # C++ objects and libs
 *.slo
