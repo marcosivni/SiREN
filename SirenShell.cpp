@@ -129,7 +129,7 @@ void SirenShell::onReadyRead(){
         QString query = datas;
         query = query.simplified();
         //Remove ';'
-        if (query.at(query.size() -1) == ";"){
+        if (query.size() && query.at(query.size() -1) == ";"){
             query.chop(1);
         }
 

@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    QString hostname, username, password, dbms;
+    QString hostname, username, password, dbms = "SIREN";
     int port = -1;
     std::string pass;
     DatabaseManager *db;
